@@ -1,9 +1,13 @@
 # print("Hello,World!")
-
-grid = [["-" for col in range(3)] for row in range(3)]   # создали пустую сетку
-print(*grid, sep='\n')  # вывели ее некрасиво
-turn = input("Крестики ходят: ")  # формат записи хода "column-row", например 2-2
-value = list(map(int, turn.split(' ')))
-print(value)
-# grid.insert()
-# print(*grid, sep='\n')
+n = 3
+m = 3
+grid = [["-" for col in range(n)] for row in range(m)]   # создали пустую сетку
+print(*grid, sep='\n')  # вывели ее
+turn_x = input("Крестики ходят: ")  # формат записи хода "row-column", например 1 2, где 1 - строка, 2 -столбец
+col, row = list(map(int, turn_x.split(' ')))
+grid[col-1][row-1] = 'X'
+print(*grid, sep='\n')
+turn_o = input("Нолики ходят: ")
+col, row = list(map(int, turn_o.split(' ')))
+grid[col-1][row-1] = 'O'
+print(*grid, sep='\n')
