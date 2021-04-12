@@ -1,36 +1,42 @@
 
 n = 3
 grid = [["-" for col in range(n)] for row in range(n)]
-sign = 'X'
+sign = ["-", "X", "O"]
+next_sign = sign[1]
 move = input("Крестики ходят первые: ")
 col, row = list(map(int, move.split(' ')))
 grid[col - 1][row - 1] = sign
 print(*grid, sep='\n')
 
 
-def update_grid(col, row, sign):
-    if grid[col - 1][row - 1] == "-":
-        grid[col - 1][row - 1] = sign
-        return new_grid(grid)
+def update_grid(column, row_, symbol):
+    next_sign_ = symbol
+    if grid[column - 1][row_ - 1] == "-":
+        grid[column - 1][row_ - 1] = symbol
+        new_grid(grid)
+        return next_sign_
     else:
-        return input('Место занято, сходите иначе: '), update_grid(col, row, sign)
+        return input('Место занято, сходите иначе: ') + update_grid(column, row_, symbol)
 
 
 def new_grid(a):
     print(*a, sep='\n')
 
 
-while "-" in grid:
-    if sign == "X":
-        sign = "O"
+if "-" in grid[row]:
+    if sign == sign[1]:
+        next_sign = sign[2]
         move = input("Нолики ходят: ")
-        grid = update_grid(col, row, sign)
+        col, row = list(map(int, move.split(' ')))
+        update_grid(col, row, sign)
     else:
-        sign = "X"
+        sign = sign[1]
         move = input("Крестики ходят: ")
-        grid = update_grid(col, row, sign)
-
-
+        col, row = list(map(int, move.split(' ')))
+        grid[col - 1][row - 1] = sign
+        new_grid(grid)
+else:
+    print("Игра закончилась с каким-то результатом")
 
 #  def winner_is():
 
