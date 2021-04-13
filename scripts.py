@@ -24,12 +24,11 @@ col, row = list(map(int, move.split(' ')))
 grid[col - 1][row - 1] = next_sign
 new_grid(grid)
 
-counter = grid[row].count("-")
-print(counter)
-# condition = "-" in grid[row]
-# print(condition)
 
-while counter > 0:
+condition = any(['-' in row for row in grid])
+print(condition)
+
+while condition:
     if next_sign == sign[1]:
         next_sign = sign[2]
         move = input("Нолики ходят: ")
@@ -38,8 +37,7 @@ while counter > 0:
         move = input("Крестики ходят: ")
     col, row = list(map(int, move.split(' ')))
     update_grid(col, row, next_sign)
-    counter -= 1
-    print(counter)
+    condition = any(['-' in row for row in grid])
 else:
     print("Игра закончилась вничью")
 
