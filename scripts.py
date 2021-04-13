@@ -41,6 +41,6 @@ while counter > 0:
     counter -= 1
     print(counter)
 else:
-    print("Игра закончилась с каким-то результатом")
+    print("Игра закончилась вничью")
 
 
