@@ -11,9 +11,8 @@ def new_grid(a):
 
 
 def winner_is(a):  # доработать
-    for el in a:
-        a_set = set(el)
-        if len(a_set) == 1 and a_set != {'-'}:
+    for r in a:
+        if all(el == "X" for el in r) or all(el == "O" for el in r):
             return True
         else:
             return False
