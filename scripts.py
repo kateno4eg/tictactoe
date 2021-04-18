@@ -14,10 +14,9 @@ def winner_is(a):  # доработать
     for el in a:
         a_set = set(el)
         if len(a_set) == 1 and a_set != {'-'}:
-            print(f'Победа {a_set}!')  # доработать вывод
             return True
         else:
-            pass
+            return False
 
 
 n = 3
@@ -30,29 +29,35 @@ col, row = list(map(int, move.split(' ')))
 grid[col - 1][row - 1] = next_sign
 new_grid(grid)
 
-condition_1 = any(['-' in row for row in grid])
-while condition_1 and winner_is(grid) is not True:
-    if next_sign == sign[0]:
-        next_sign = sign[1]
-        move = input("Нолики ходят: ")
-    else:
-        next_sign = sign[0]
-        move = input("Крестики ходят: ")
-    col, row = list(map(int, move.split(' ')))
-    if 0 < col <= n and 0 < row <= n:
-        if grid[col - 1][row - 1] == "-":
-            update_grid(col, row, next_sign)
+condition = any(['-' in row for row in grid])
+while winner_is(grid) is False:
+    if condition:
+        if next_sign == sign[0]:
+            next_sign = sign[1]
+            move = input("Нолики ходят: ")
         else:
-            move = input("Место занято, сходите иначе: ")
+            next_sign = sign[0]
+            move = input("Крестики ходят: ")
+        col, row = list(map(int, move.split(' ')))
+        if 0 < col <= n and 0 < row <= n:
+            if grid[col - 1][row - 1] == "-":
+                update_grid(col, row, next_sign)
+            else:
+                move = input("Место занято, сходите иначе: ")
+                col, row = list(map(int, move.split(' ')))
+                update_grid(col, row, next_sign)
+        else:
+            move = input(f"Введите число в диапазоне от 0 до {n} включительно: ")
             col, row = list(map(int, move.split(' ')))
             update_grid(col, row, next_sign)
+        condition = any(['-' in row for row in grid])
+        print(winner_is(grid))
     else:
-        move = input(f"Введите число в диапазоне от 0 до {n} включительно: ")
-        col, row = list(map(int, move.split(' ')))
-        update_grid(col, row, next_sign)
-    condition = any(['-' in row for row in grid])
-    winner_is(grid)
+        print("Игра окончена вничью")  # добавить условие победы в игре
+        break
 else:
-    print("Игра окончена")  # добавить условие победы в игре
-
+    if next_sign == sign[0]:
+        print(f"Крестики победили!")
+    if next_sign == sign[1]:
+        print(f"Нолики победили!")
 
