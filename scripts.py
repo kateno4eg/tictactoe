@@ -11,11 +11,14 @@ def new_grid(a):
 
 
 def winner_is(a):  # доработать
+    a_trans = [list(i) for i in zip(*a)]
+    for r in a_trans:
+        if all(el == "X" for el in r) or all(el == "O" for el in r):
+            return True
     for r in a:
         if all(el == "X" for el in r) or all(el == "O" for el in r):
             return True
-        else:
-            return False
+    return False
 
 
 n = 3
@@ -59,4 +62,3 @@ else:
         print(f"Крестики победили!")
     if next_sign == sign[1]:
         print(f"Нолики победили!")
-
