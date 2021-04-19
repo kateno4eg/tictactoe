@@ -10,13 +10,21 @@ def new_grid(a):
         print(i, ' '.join(map(str, item)))
 
 
-def winner_is(a):  # доработать
+def winner_is(a):
     a_trans = [list(i) for i in zip(*a)]
     for r in a_trans:
         if all(el == "X" for el in r) or all(el == "O" for el in r):
             return True
     for r in a:
         if all(el == "X" for el in r) or all(el == "O" for el in r):
+            return True
+    for r in range(len(a)):
+        if all(a[i][i] == "X" for i in range(len(a))) or all(a[i][i] == "O" for i in range(len(a))):
+            return True
+    for r in range(len(a)):
+        if all(a[i][len(a) - 1 - i] == "X" for i in range(len(a))):
+            return True
+        elif all(a[i][len(a) - 1 - i] == "O" for i in range(len(a))):
             return True
     return False
 
@@ -55,7 +63,7 @@ while winner_is(grid) is False:
         condition = any(['-' in row for row in grid])
         print(winner_is(grid))
     else:
-        print("Игра окончена вничью")  # добавить условие победы в игре
+        print("Игра окончена вничью")
         break
 else:
     if next_sign == sign[0]:
